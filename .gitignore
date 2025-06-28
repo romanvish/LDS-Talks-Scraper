@@ -2,3 +2,4 @@ Talks/*
 go.mod
 go.sum
 talksProcessed/*
+Outputs/*
