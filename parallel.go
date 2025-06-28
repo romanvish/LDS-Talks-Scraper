@@ -9,7 +9,7 @@ import (
 func main() {
 	fmt.Println("starting talk processor...")
 
-	cmd := exec.Command("python3", "talkParser.py")
+	cmd := exec.Command("python3", "talkParser2.py")
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
