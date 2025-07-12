@@ -1,15 +1,14 @@
 #!/bin/bash
 
-mkdir -p Talks
+mkdir -p raw_text/talks
 
 RANGE_START=$1
 RANGE_END=$2
 
 for ((i=RANGE_START; i<=RANGE_END; i++)); do
-# TODO -- update this so that the range can be specified as anything (not starting at 1)
-  url="https://scriptures.byu.edu/content/talks_ajax/$i/"
-  output="Talks/$i.html"
+  url="https://scriptures.byu.edu/content/talks_ajax/$i/"  # max is 8800 (Confidence in the Presence of God by Russell M. Nelson, April 2025)
+  output="raw_text/talks/$i.html"
   
-  echo "Downloading $url to $output"
-  curl -fsSL -o "$output" "$url" || echo "Failed to download $url"
+  echo "Attempting to download $url to $output"
+  curl -sSL -o "$output" "$url" || echo "Failed to download $url"
 done

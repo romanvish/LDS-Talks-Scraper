@@ -9,17 +9,18 @@ talk_name_end = int(sys.argv[2]) + 1
 
 for talk_num in range(talk_name_start, talk_name_end):
     # Load your scraped HTML (replace this with actual file load if needed)
-    with open(f"Talks/{talk_num}.html", "r", encoding="utf-8") as f:
+    raw_file = f"raw_text/talks/{talk_num}.html"
+    with open(raw_file, "r", encoding="utf-8") as f:
         html = f.read()
+
+    if 'Error (500)' in str(html):  # error handling for bad status codes (for some reason it returns lots of 500s)
+        os.remove(raw_file)  # delete the bad files
+        continue
 
     soup = BeautifulSoup(html, 'html.parser')
 
     # Find all <p> tags
     paragraphs = soup.find_all('p')
-
-    # get title/speaker to save the text file with this
-    title = re.sub(r'[^A-Za-z0-9]', '_', paragraphs[0].get_text(strip=True)).strip('_')
-    speaker = re.sub(r'[^A-Za-z0-9]', '_', paragraphs[1].get_text(strip=True)).replace('__', '_').strip('_')
 
     paragraph_texts = []
     for p in paragraphs:
@@ -27,7 +28,7 @@ for talk_num in range(talk_name_start, talk_name_end):
         if text:  # Only add non-empty paragraphs
             paragraph_texts.append(text)
 
-    filename = os.path.join('talksProcessed', re.sub(' ', '', title + '_' + speaker)) + f'_{talk_num}.txt'
+    filename = os.path.join('clean_text', 'talks_processed', f'{talk_num}.txt')
     with open(filename, 'w', encoding='utf-8') as f:
         for text in paragraph_texts:
             f.write(text + '\n\n')  # Double newline between paragraphs

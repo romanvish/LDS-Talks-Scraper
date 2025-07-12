@@ -1,4 +1,5 @@
-Talks/*
+raw_text/*
+clean_text/*
 go.mod
 go.sum
 talksProcessed/*

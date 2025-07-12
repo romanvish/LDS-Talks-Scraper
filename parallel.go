@@ -74,7 +74,7 @@ func main() {
 		return
 	}
 
-	fmt.Printf("Processing documents %d to %d with %d threads\n", start_position, end_position, n_threads)
+	// fmt.Printf("Processing documents %d to %d with %d threads\n", start_position, end_position, n_threads)
 
 	total_docs := end_position_int - start_position_int + 1
 	docs_per_thread := total_docs / n_threads
